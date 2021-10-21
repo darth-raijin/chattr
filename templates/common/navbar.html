@@ -1,0 +1,89 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <h1>SPOTISCOUT</h1>
+    </a>
+
+    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div class="navbar-menu">
+    <div class="navbar-end">
+      <div class="navbar-item">
+        {% if session["user"] %}
+    
+          <a class=" navbar-item" href="/tracks/top?range=alltime">
+            TRACKS
+          </a>
+          <a class=" navbar-item" href="/genres">
+            GENRES
+          </a>
+          <a class=" navbar-item" href="/artists/top?range=alltime">
+            ARTISTS
+          </a>
+          <a class=" navbar-item" href="/recent">
+            RECENT
+          </a>
+          {% endif %}
+          
+          <div class="buttons">
+            
+            {% if session["user"] %}
+            <a class="button is-info" href="/profile">
+              {{session["user"]["display_name"]}}
+            </a>
+            <a class="button is-danger" id = "signout" href="/logout">
+              <strong>SIGN OUT</strong>
+            </a>
+            {% else %}
+            <a class="button is-primary has-tooltip-bottom" href = {{auth_url}} disabled>
+              <strong>Sign in to use features</strong>
+            </a>
+            <a class="button is-primary has-tooltip-bottom" href = {{auth_url}}>
+              <strong>SIGN IN</strong>
+            </a>
+            {% endif %}
+    
+          </div>
+        </div>
+    </div>
+
+  </div>
+  </div>
+</nav>
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<section class="section">
+
+    {% for category, message in messages %}
+    {% if category == "success"%}
+    <div class="notification is-primary">
+      {% endif %}
+      {% if category == "error" %}
+      <div class="notification is-danger">
+        {% endif %}
+      {{message}}
+    </div>
+    {% endfor %}
+
+</section>
+
+<script>
+  $(document).ready(function() {
+
+// Check for click events on the navbar burger icon
+$(".navbar-burger").click(function() {
+
+    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+    $(".navbar-burger").toggleClass("is-active");
+    $(".navbar-menu").toggleClass("is-active");
+
+});
+});
+</script>
+{% endif %}
+{% endwith %}
