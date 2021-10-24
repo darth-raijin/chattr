@@ -9,9 +9,14 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.env
+brainstorm.py
+.flask_session/
+.spotify_caches/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+test.py
 
 # Mono auto generated files
 mono_crash.*

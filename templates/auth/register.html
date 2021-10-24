@@ -1,0 +1,40 @@
+{% extends '/base.html' %}
+{% block content%}
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column ">
+          <form action="{{url_for('auth.register')}}" class="box" id="formbox" method="POST">
+            <div class="field">
+              <label for="" class="label" id="subtitle">Username</label>
+              <div class="control">
+                <input type="text" placeholder="Choose a username" name="username" class="input" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="" class="label" id="subtitle">Email</label>
+              <div class="control">
+                <input type="email" placeholder="Enter your email" name="email" class="input" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="" class="label" id="subtitle">Password</label>
+              <div class="control">
+                <input type="password" placeholder="*******" name="password"  class="input" required>
+              </div>
+            </div>
+            <div class="field">
+            </div>
+            <div class="field">
+              <button class="button is-primary">
+                Register
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock%}

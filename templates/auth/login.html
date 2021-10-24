@@ -1,0 +1,37 @@
+{% extends '/base.html' %}
+{% block content%}
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column ">
+          <form action="" class="box" id="formbox">
+            <div class="field">
+              <label for="" class="label" id="subtitle">Username</label>
+              <div class="control">
+                <input type="email" placeholder="Choose a username" class="input" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="" class="label" id="subtitle">Password</label>
+              <div class="control">
+                <input type="password" placeholder="*******" class="input" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="" class="checkbox">
+                <input type="checkbox">
+              </label>
+            </div>
+            <div class="field">
+              <button class="button is-primary">
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock%}
