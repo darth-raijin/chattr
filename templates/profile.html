@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block content%}
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="title">
+        {{current_user.get_id()}}
+      </p>
+    </div>
+  </div>
+  </div>
+</section>
+<div class="block">
+</div>
+<nav class="level">
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">ROOMS JOINED</p>
+      <p class="title">24</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">FRIENDS</p>
+      <p class="title">125</p>
+    </div>
+  </div>
+</nav>
+
+<section class="section">
+    <h1 class="title">RANDOM ROOM PICKS</h1>
+    <h2 class="subtitle">
+      Hop back in some of your rooms!
+    </h2>
+    <div class="columns">
+      <div class="column">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-square">
+              <a href="/">
+                <img src="https://www.besthdwallpaper.com/anime/eustass-kid-dt_da-51887.html#">
+              </a>
+              </figure>
+            </div>
+            <div class=" card-content">
+                <div class="media">
+                  <div class="media-content">
+                      <a href="/">
+                      <button class="button is-outlined">
+                        <p class="title is-4">WEEB NATION</p>
+                      </button>
+                    </a>
+                  </div>
+                </div>
+  
+  
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-square">
+              <a href="/">
+                <img src="https://www.besthdwallpaper.com/anime/eustass-kid-dt_da-51887.html#">
+              </a>
+              </figure>
+            </div>
+            <div class=" card-content">
+                <div class="media">
+                  <div class="media-content">
+                      <a href="/">
+                      <button class="button is-outlined">
+                        <p class="title is-4">WEEB NATION</p>
+                      </button>
+                    </a>
+                  </div>
+                </div>
+  
+  
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-square">
+              <a href="/">
+                <img src="https://www.besthdwallpaper.com/anime/eustass-kid-dt_da-51887.html#">
+              </a>
+              </figure>
+            </div>
+            <div class=" card-content">
+                <div class="media">
+                  <div class="media-content">
+                      <a href="/">
+                      <button class="button is-outlined">
+                        <p class="title is-4">WEEB NATION</p>
+                      </button>
+                    </a>
+                  </div>
+                </div>
+  
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock%}

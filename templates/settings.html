@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content%}
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="title">
+        {{current_user.get_id()}}
+      </p>
+      <div class="block">
+        <div class="subtitle">
+            <a class="button is-black" href="/settings">Settings</a>
+          </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+</nav>
+
+{% endblock%}

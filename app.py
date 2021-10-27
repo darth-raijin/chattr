@@ -13,6 +13,7 @@ from blueprints.auth import auth
 from blueprints.rooms import rooms
 from util import builder
 from services.database import Database
+from models.user import User
 
 
 load_dotenv()
@@ -43,18 +44,33 @@ app.register_blueprint(rooms)
 
 @login_manager.user_loader
 def load_user(user_id):
-        return "SKoak"
+        try:
+                result = database.get_user_by_id(user_id)
+                user = User(id = result["id"], email = result["email"],
+                joined_rooms = result["joined_rooms"], friends = result["friends"])
+                return user
+        except:
+                return None
 
 @login_required
 @app.route("/current")
 def current():
-        return current_user
+        name = current_user.get_id()
+        return f"Name: {name}"
 
 @app.route('/')
 def index():
         return render_template("index.html")
 
+@login_required
+@app.route("/profile")
+def profile():
+        return render_template("profile.html") 
 
+@login_required
+@app.route("/settings")
+def settings():
+        return render_template("settings.html") 
 
 print("APP READY!")
 

@@ -15,13 +15,20 @@ class Database:
 
     def get_user_by_id(self, user_id: str):
         result = mongo.db.users.find({"_id": user_id})
-        
-        result_dict = {
-            "id": result.get("__id"),
-            "email": result.get("email"),
-            "joined_rooms": result.get("joined_rooms"),
-            "friends": result.get("friends")
-            }
+        result_dict = {}
+
+        for item in result: 
+            print("User found")       
+            result_dict = {
+                "id": item.get("_id"),
+                "email": item.get("email"),
+                "joined_rooms": item.get("joined_rooms"),
+                "friends": item.get("friends")
+                }
+            print(result_dict)
+        if not result_dict:
+            return None
+
         return result_dict
 
     def create_user(self, user_id: str, email: str, password: str):

@@ -14,36 +14,36 @@
   <div class="navbar-menu">
     <div class="navbar-end">
       <div class="navbar-item">
-        {% if session["user"] %}
+        {% if current_user.is_authenticated %}
     
-          <a class=" navbar-item" href="/tracks/top?range=alltime">
-            TRACKS
+          <a class=" navbar-item" href="/friends">
+            FRIENDS
           </a>
-          <a class=" navbar-item" href="/genres">
-            GENRES
+          <a class=" navbar-item" href="/rooms">
+            ROOMS
           </a>
-          <a class=" navbar-item" href="/artists/top?range=alltime">
-            ARTISTS
-          </a>
-          <a class=" navbar-item" href="/recent">
-            RECENT
+          <a class=" navbar-item" href="/search">
+            SEARCH
           </a>
           {% endif %}
           
           <div class="buttons">
             
-            {% if session["user"] %}
+            {% if current_user.is_authenticated %}
             <a class="button is-info" href="/profile">
-              {{session["user"]["display_name"]}}
+              {{current_user.get_id()}}
             </a>
-            <a class="button is-danger" id = "signout" href="/logout">
+            <a class="button is-danger" id = "signout" href="auth/logout">
               <strong>SIGN OUT</strong>
             </a>
             {% else %}
-            <a class="button is-primary has-tooltip-bottom" href = {{auth_url}} disabled>
-              <strong>Sign in to use features</strong>
+            <a class="button is-primary has-tooltip-bottom" disabled>
+              Sign in to use features
             </a>
-            <a class="button is-primary has-tooltip-bottom" href = {{auth_url}}>
+            <a class="button is-primary has-tooltip-bottom" href = "auth/register">
+              <strong>REGISTER</strong>
+            </a>
+            <a class="button is-primary has-tooltip-bottom" href = "auth/login">
               <strong>SIGN IN</strong>
             </a>
             {% endif %}

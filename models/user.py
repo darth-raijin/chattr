@@ -8,7 +8,7 @@ class User(UserMixin):
         self.__id = id
         self.__email = email
         self.__password = password
-        self.__email = email
+        self.__friends = friends
 
 
     def get_id(self):
@@ -25,3 +25,6 @@ class User(UserMixin):
     
     def set_password(self, password):
         self.__password = None
+
+    def get_all(self):
+        return f"ID: {self.__id}, email: {self.__email}, password: {self.__password}, joined_rooms: {self.__joined_rooms}, friends: {self.__friends}"
