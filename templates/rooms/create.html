@@ -1,0 +1,47 @@
+{% extends '/base.html' %}
+{% block content%}
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column ">
+          <form action="" class="box" id="formbox" method="post">
+            <div class="field">
+              <label for="" class="label" id="subtitle">Name</label>
+              <div class="control">
+                <input type="text" placeholder="Choose a name for the room" name="name" class="input" required>
+              </div>
+            </div>
+            <div class="field">
+                <label for="" class="label" id="subtitle">Description</label>
+                <div class="control">
+                  <input type="text" placeholder="Create a description" name="description" class="input" required>
+                </div>
+            </div>
+            <div class="field">
+              <label for="" class="checkbox">
+                Publicity
+              </label>
+              <div class="control">
+                <label class="radio">
+                  <input type="radio" name="public">
+                  Public
+                </label>
+                <label class="radio">
+                  <input type="radio" name="public">
+                  Private
+                </label>
+              </div>
+            </div>
+            <div class="field">
+              <button class="button is-primary">
+                Create
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock%}

@@ -1,4 +1,5 @@
 from flask_pymongo import PyMongo
+import datetime
 
 mongo = PyMongo()
 
@@ -37,4 +38,11 @@ class Database:
             result = mongo.db.users.insert_one({"_id": user_id, "email": email, "password": password, "joined_rooms": [], "friends": []})
             return True
         except:
-            return "Username not unique"
+            return False
+
+    def create_room(self, name, description, public: bool, creator: str):
+        try:
+            result = mongo.db.rooms.insert_one({"name": name, "description": description, "public": public, "admin": [creator], "members": [creator], "date": datetime.datetime.utcnow()})
+            return True
+        except:
+            return False

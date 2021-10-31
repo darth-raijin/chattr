@@ -10,6 +10,23 @@ rooms = Blueprint('rooms', __name__, url_prefix='/rooms',
 database = Database()
 
 @rooms.route("/")
-def room_root():
-
+def root():
     return render_template("rooms/rooms.html")
+
+@rooms.route("/create", methods=["GET", "POST"])
+def create():
+    if request.method == "POST":
+        name = request.form['name']
+        description = request.form['description']
+        public = request.form['public']
+
+        if database.create_room(name, description, public, current_user.get_id()):
+            flash("Room created, go have fun!",
+                  category="success")
+            print(request.form)
+            return request.form
+
+
+        return redirect(url_for(create))
+    elif request.method == "GET":
+        return render_template("rooms/create.html")
