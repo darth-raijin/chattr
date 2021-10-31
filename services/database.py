@@ -23,7 +23,8 @@ class Database:
                 "id": item.get("_id"),
                 "email": item.get("email"),
                 "joined_rooms": item.get("joined_rooms"),
-                "friends": item.get("friends")
+                "friends": item.get("friends"),
+                "password": item.get("password")
                 }
             print(result_dict)
         if not result_dict:
