@@ -16,13 +16,13 @@
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">ROOMS JOINED</p>
-      <p class="title">24</p>
+      <p class="title">{{current_user.get_rooms_amount()}}</p>
     </div>
   </div>
   <div class="level-item has-text-centered">
     <div>
       <p class="heading">FRIENDS</p>
-      <p class="title">125</p>
+      <p class="title">{{current_user.get_friends_amount()}}</p>
     </div>
   </div>
 </nav>

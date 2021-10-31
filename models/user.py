@@ -26,5 +26,11 @@ class User(UserMixin):
     def set_password(self, password):
         self.__password = None
 
+    def get_friends_amount(self):
+        return len(self.__friends)
+
+    def get_rooms_amount(self):
+        return len(self.__joined_rooms)
+
     def get_all(self):
         return f"ID: {self.__id}, email: {self.__email}, password: {self.__password}, joined_rooms: {self.__joined_rooms}, friends: {self.__friends}"
