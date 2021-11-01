@@ -27,35 +27,23 @@
   <h2 class="subtitle">
     Click a room to connect!
   </h2>
-
+  {% for item in rooms %}
   <div class="card">
     <div class="card-content">
       <div class="media">
         <div class="media-content">
-            <p class="title is-4" id="title">Weeb Nation</p>
-            <p class="subtitle is-5" id ="subtitle">Discussion of Manga and Anime </p>
-            <p class="subtitle is-6" id ="subtitle">Members of room: 21</p>
+            <p class="title is-4" id="title">{{item.get("name")}}</p>
+            <p class="subtitle is-5" id ="subtitle">{{item.get("description")}} </p>
+            <p class="subtitle is-6" id ="subtitle">Members of room: {{item.get("member_count")}}</p>
         </div>
         <div class="media-right">
+          <a href={{url_for("rooms.connect", room=item.get("id"))}}>
           <button class="button">Connect</button>
+          </a>
         </div>
       </div>
     </div>
   </div>
-
-  <div class="card">
-    <div class="card-content">
-      <div class="media">
-        <div class="media-content">
-            <p class="title is-4" id="title">Lil Baby Fanclub</p>
-            <p class="subtitle is-5" id ="subtitle">Listening to the newest bangers</p>
-            <p class="subtitle is-6" id ="subtitle">Members of room: 21</p>
-        </div>
-        <div class="media-right">
-          <button class="button">Connect</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% endfor%}
 </section>
 {% endblock%}

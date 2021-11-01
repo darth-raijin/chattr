@@ -1,12 +1,18 @@
-class Rooms:
+class Room:
 
-    def __init__(self, id, description = None, members = [], public = True, admin = []):
+    def __init__(self, id, name, description = None, members = [], public = True, admin = []):
         self.__id = id
+        self.__name = name
         self.__description = description
         self.__members = members
         self.__public = public
         self.__admin = admin
 
+    def get_name(self):
+        return self.__name
+    
+    def set_name(self, name):
+        self.__name = name
 
     def get_id(self):
         return self.__id

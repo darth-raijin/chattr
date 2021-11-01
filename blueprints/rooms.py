@@ -1,18 +1,23 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app
 from flask_login import login_user, logout_user, login_required, current_user, LoginManager
-from models import user
+from models.room import Room
 import re
 from services.database import Database
 from models.user import User
 
 rooms = Blueprint('rooms', __name__, url_prefix='/rooms',
-                 static_folder="static", template_folder="/chatrooms/")
+                 static_folder="static", template_folder="/rooms/")
 database = Database()
 
+@login_required
 @rooms.route("/")
 def root():
-    return render_template("rooms/rooms.html")
+    public_rooms = database.get_public_rooms()
+    print(f"{public_rooms} rooms are here bossman")
+    return render_template("rooms/rooms.html", rooms = public_rooms)
 
+
+@login_required
 @rooms.route("/create", methods=["GET", "POST"])
 def create():
     if request.method == "POST":
@@ -30,3 +35,23 @@ def create():
         return redirect(url_for(create))
     elif request.method == "GET":
         return render_template("rooms/create.html")
+
+
+@login_required
+@rooms.route("/connect", methods=["GET", "POST"])
+def connect():
+    if request.method == "POST":
+        
+
+        return render_template("rooms/create.html")
+    elif request.method == "GET":
+        room_id = request.args.get("room")
+        # TODO get single Room that has ID
+        result = database.get_room_by_id(room_id)
+
+        if result:
+            room = Room(result["_id"], result["name"] ,result["description"], result["members"], result["public"], result["admin"])
+            return render_template("rooms/room.html", room = room)
+
+        flash("That room does not exist!", "error")
+        return redirect(url_for("rooms.root"))

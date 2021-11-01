@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content%}
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <p class="title">
+        ROOMS
+      </p>
+    </div>
+  </div>
+  </div>
+
+</section>
+
+<section class="section">
+  <h1 class="title">{{room.get_name()}}</h1>
+  <h2 class="subtitle">
+    {{room.get_description()}}
+  </h2>
+
+  {% if current_user.get_id() in room.get_admin() %}
+  <!-------------------- TODO SORT THIS B------------------->
+  <div class="control">
+    <button class="button is-info">Settings</button>
+  </div>
+  {% endif %}
+
+</section>
+
+<section class="section">
+  <div class="card">
+    <div class="card-content">
+      <div class="media">
+        <div class="media-content">
+            <p class="title is-4" id="title">Sender</p>
+            <p class="subtitle is-5" id ="subtitle">Message </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form>
+    <div class="field has-addons">
+      <div class="control is-expanded">
+        <input type="text" class="input" name="userInput" placeholder="Type your message">
+      </div>
+      <div class="control">
+        <button class="button is-info">Send</button>
+      </div>
+    </div>
+  </form>
+</section>
+{% endblock%}
