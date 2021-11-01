@@ -1,4 +1,5 @@
 from flask_login import UserMixin
+from models.room import Room
 
 
 class User(UserMixin):
@@ -9,7 +10,14 @@ class User(UserMixin):
         self.__email = email
         self.__password = password
         self.__friends = friends
+        self.__current_room = None
 
+    def get_current_room(self):
+        return self.__current_room
+
+    def set_current_room(self, room: Room):
+        self.__current_room = room
+        print(self.__current_room)
 
     def get_id(self):
         return self.__id
@@ -33,4 +41,4 @@ class User(UserMixin):
         return len(self.__joined_rooms)
 
     def get_all(self):
-        return f"ID: {self.__id}, email: {self.__email}, password: {self.__password}, joined_rooms: {self.__joined_rooms}, friends: {self.__friends}"
+        return f"ID: {self.__id}, email: {self.__email}, Current Room: {self.__current_room} ,password: {self.__password}, joined_rooms: {self.__joined_rooms}, friends: {self.__friends}"

@@ -73,9 +73,7 @@ class Database:
     def get_room_by_id(self, id: str):
         try:
             result = mongo.db.rooms.find({"_id": ObjectId(id)})        
-            print("Room with id found: {}".format(id))  
             for item in result: 
-                print("Room details: {}".format(item)) 
                 room = {
                     "_id": item.get("_id"),
                     "name": item.get("name"),

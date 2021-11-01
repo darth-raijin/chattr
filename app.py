@@ -72,6 +72,11 @@ def profile():
 def settings():
         return render_template("settings.html") 
 
+@login_required
+@app.route("/me")
+def me():
+        return current_user.get_all()
+
 print("APP READY!")
 
 if __name__ == '__main__':

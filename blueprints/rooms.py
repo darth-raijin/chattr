@@ -51,6 +51,8 @@ def connect():
 
         if result:
             room = Room(result["_id"], result["name"] ,result["description"], result["members"], result["public"], result["admin"])
+            print(room)
+            current_user.set_current_room(room)
             return render_template("rooms/room.html", room = room)
 
         flash("That room does not exist!", "error")
