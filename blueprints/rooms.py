@@ -9,6 +9,7 @@ rooms = Blueprint('rooms', __name__, url_prefix='/rooms',
                  static_folder="static", template_folder="/rooms/")
 database = Database()
 
+
 @login_required
 @rooms.route("/")
 def root():
@@ -57,3 +58,4 @@ def connect():
 
         flash("That room does not exist!", "error")
         return redirect(url_for("rooms.root"))
+
