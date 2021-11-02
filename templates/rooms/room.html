@@ -24,8 +24,8 @@ socket.on('connect', function() {
           let message = message_input.value.trim();
           if (message.length) {
               socket.emit('send_message', {
-                  username: "{{ username }}",
-                  room: "{{ room }}",
+                  username: "{{ current_user.get_id() }}",
+                  room: "{{ room.get_id() }}",
                   message: message
               })
           }
@@ -44,7 +44,16 @@ socket.on('connect', function() {
   socket.on('receive_message', function (data) {
       console.log(data);
       const newNode = document.createElement('div');
-      newNode.innerHTML = `<b>${data.username}:&nbsp;</b> ${data.message}`;
+      newNode.innerHTML = ` <div class="card ">
+                            <div id="messages">
+                            <div class="card-content ">
+                              <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4 " id="title">${data.username}</p>
+                                    <p class="subtitle is-5 " id ="subtitle">${data.message}</p>
+                                </div>
+                              </div>
+                            </div>`;
       document.getElementById('messages').appendChild(newNode);
   });
 
@@ -52,9 +61,18 @@ socket.on('connect', function() {
       console.log(data);
       if (data.username !== "{{ username }}") {
           const newNode = document.createElement('div');
-          newNode.innerHTML = `<b>${data.username}</b> has joined the room`;
+          newNode.innerHTML = `<div class="card-content">
+                            <nav class="level">
+                              <p class="level-item has-text-centered">
+                                <a class="level-item is-info">${data.username} just joined</a>
+                              </p>
+                              
+                            </nav>
+                          </div>`;
+          console.log(newNode.innerHTML)
           document.getElementById('messages').appendChild(newNode);
-      }
+                        }
+      
   });
 
   socket.on('leave_room_announcement', function (data) {
@@ -94,20 +112,20 @@ socket.on('connect', function() {
 </section>
 
 <section class="section">
-  <div class="card">
-    <div class="card-content">
-      <div class="media">
-        <div class="media-content">
-            <p class="title is-4" id="title">Sender</p>
-            <p class="subtitle is-5" id ="subtitle">Message </p>
-        </div>
-      </div>
-    </div>
+
+  <!--BODY FOR MESSAGE--->
+ 
+  <div class="card ">
+    <div id="messages">
+    <div class="card-content ">
   </div>
-  <form>
+  </div>
+
+  <!---Messages id ends here-->
+  <form id="message_input_form">
     <div class="field has-addons">
       <div class="control is-expanded">
-        <input type="text" class="input" name="userInput" placeholder="Type your message">
+        <input type="text" class="input"  id="message_input"  placeholder="Type your message">
       </div>
       <div class="control">
         <button class="button is-info">Send</button>
@@ -115,4 +133,5 @@ socket.on('connect', function() {
     </div>
   </form>
 </section>
+
 {% endblock%}

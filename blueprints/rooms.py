@@ -41,21 +41,16 @@ def create():
 @login_required
 @rooms.route("/connect", methods=["GET", "POST"])
 def connect():
-    if request.method == "POST":
-        
+    room_id = request.args.get("room")
+    # TODO get single Room that has ID
+    result = database.get_room_by_id(room_id)
 
-        return render_template("rooms/create.html")
-    elif request.method == "GET":
-        room_id = request.args.get("room")
-        # TODO get single Room that has ID
-        result = database.get_room_by_id(room_id)
+    if result:
+        room = Room(result["_id"], result["name"] ,result["description"], result["members"], result["public"], result["admin"])
+        print(room)
+        current_user.set_current_room(room)
+        return render_template("rooms/room.html", room = room)
 
-        if result:
-            room = Room(result["_id"], result["name"] ,result["description"], result["members"], result["public"], result["admin"])
-            print(room)
-            current_user.set_current_room(room)
-            return render_template("rooms/room.html", room = room)
-
-        flash("That room does not exist!", "error")
-        return redirect(url_for("rooms.root"))
+    flash("That room does not exist!", "error")
+    return redirect(url_for("rooms.root"))
 
