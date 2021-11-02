@@ -101,12 +101,26 @@ socket.on('connect', function() {
   <h2 class="subtitle">
     {{room.get_description()}}
   </h2>
+  <div id ="invite"></div>
 
   {% if current_user.get_id() in room.get_admin() %}
   <!-------------------- TODO SORT THIS B------------------->
-  <div class="control">
-    <button class="button">Settings</button>
+
+<nav class="level">
+  <div class="level-item has-text-centered">
+    <div>
+      <button class="button">Settings</button>
+    </div>
   </div>
+  <div class="level-item has-text-centered">
+    <div>
+      <a href={{url_for("rooms.invite", id= room.get_id())}}>
+      <button class="button">Get invite link</button>
+    </a>
+    </div>
+  </div>
+
+</nav>
   {% endif %}
 
 </section>

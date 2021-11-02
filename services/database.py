@@ -70,6 +70,47 @@ class Database:
         except:
             return False
 
+    def get_private_rooms(self, _id: str):
+        try:
+            rooms = []
+            result = mongo.db.rooms.find({"members": _id})
+
+            for item in result:
+                if item.get("public") == "off":
+                    rooms.append({
+                        "id": item.get("_id"),
+                        "name": item.get("name"),
+                        "description": item.get("description"),
+                        "public": item.get("public"),
+                        "admin": item.get("admin"),
+                        "members": item.get("members"),
+                        "member_count": len(item.get("members"))
+                    })
+
+                return rooms
+        except:
+            return False
+
+    def get_all_accessible_rooms(self, user_id: str):
+        try:
+            rooms = []
+            result = mongo.db.rooms.find({"members": user_id})
+
+            for item in result:
+                rooms.append({
+                    "id": item.get("_id"),
+                    "name": item.get("name"),
+                    "description": item.get("description"),
+                    "public": item.get("public"),
+                    "admin": item.get("admin"),
+                    "members": item.get("members"),
+                    "member_count": len(item.get("members"))
+                })
+
+                return rooms
+        except:
+            return False
+
     def get_room_by_id(self, id: str):
         try:
             result = mongo.db.rooms.find({"_id": ObjectId(id)})        
@@ -87,3 +128,6 @@ class Database:
                 
         except:
             return False
+
+    def add_member_to_room(self, user, room):
+        result = mongo.db.rooms.update({'_id': room}, {'$push': {'members': user}})

@@ -13,10 +13,11 @@ database = Database()
 @login_required
 @rooms.route("/")
 def root():
-    public_rooms = database.get_public_rooms()
-    print(f"{public_rooms} rooms are here bossman")
-    return render_template("rooms/rooms.html", rooms = public_rooms)
+    rooms = database.get_all_accessible_rooms(current_user.get_id())
 
+    if rooms is not None:
+        return render_template("rooms/rooms.html", rooms = rooms)
+    return render_template("rooms/rooms.html")
 
 @login_required
 @rooms.route("/create", methods=["GET", "POST"])
@@ -49,7 +50,28 @@ def connect():
         room = Room(result["_id"], result["name"] ,result["description"], result["members"], result["public"], result["admin"])
         print(room)
         current_user.set_current_room(room)
+
+        if current_user.get_id() not in result["members"]:
+            database.add_member_to_room(current_user.get_id(), result["_id"])
+
         return render_template("rooms/room.html", room = room)
+
+    flash("That room does not exist!", "error")
+    return redirect(url_for("rooms.root"))
+
+@rooms.route("/invite", methods=["GET", "POST"])
+def invite():
+    room_id = request.args.get("id")
+    print(room_id)
+    # TODO get single Room that has ID
+    result = database.get_room_by_id(room_id)
+
+    if result:
+        print("ROOM IS FOUND")
+        if current_user.get_id() in result["admin"]:
+            return render_template("rooms/invite.html", admin = True)
+        flash("You're now a member!", "success")
+        return redirect(url_for(rooms.root))
 
     flash("That room does not exist!", "error")
     return redirect(url_for("rooms.root"))
