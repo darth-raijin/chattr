@@ -69,7 +69,7 @@ class Database:
             return rooms
         except:
             print("Public room fetch failed")
-            return False
+            return rooms
 
     def get_private_rooms(self, _id: str):
         try:

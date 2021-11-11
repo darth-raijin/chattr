@@ -4,7 +4,11 @@
   <div class="hero-body">
     <div class="container has-text-centered">
       <p class="title">
+        {% if discover%}
+        DISCOVER ROOMS
+        {% else %}
         ROOMS
+        {% endif %}
       </p>
     </div>
   </div>
@@ -23,9 +27,13 @@
 </section>
 
 <section class="section">
-
+  {% if discover%}
+  <h1 class="title">Public rooms</h1>
+  <h2 class="subtitle">
+    Click a room to connect!
+  </h2>
+  {% else %}
   <h1 class="title">My rooms</h1>
-  {% if rooms %}
   <h2 class="subtitle">
     Click a room to connect!
   </h2>

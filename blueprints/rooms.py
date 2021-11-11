@@ -44,7 +44,7 @@ def connect():
     result = database.get_room_by_id(room_id)
 
     if result:
-        room = Room(result["_id"], result["name"] ,result["description"], result["members"], result["public"], result["admin"])
+        room = Room(result["_id"], result["name"], result["description"], result["members"], result["public"], result["admin"])
         print(room)
         current_user.set_current_room(room)
 
@@ -56,6 +56,22 @@ def connect():
     flash("That room does not exist!", "error")
     return redirect(url_for("rooms.root"))
 
+@login_required
+@rooms.route("/discover", methods=["GET"])
+def discover():
+    if request.method == "POST":
+        # TODO Post redirect to connect with id param
+        room_id = request.args.get("id")
+        return redirect(url_for("rooms.connect", id = room_id))
+
+
+    elif request.method == "GET":
+        # TODO Fetch public rooms from database
+        public_rooms = database.get_public_rooms()
+        print(public_rooms)
+        return render_template("rooms/rooms.html", rooms = public_rooms, discover = True)
+
+# TODO Check if this is good
 @rooms.route("/invite", methods=["GET", "POST"])
 def invite():
     room_id = request.args.get("id")
@@ -67,6 +83,7 @@ def invite():
         print("ROOM IS FOUND")
         if current_user.get_id() in result["admin"]:
             return render_template("rooms/invite.html", admin = True)
+
         flash("You're now a member!", "success")
         return redirect(url_for(rooms.root))
 

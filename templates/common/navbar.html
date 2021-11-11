@@ -19,11 +19,11 @@
           <a class=" navbar-item" href="/friends">
             FRIENDS
           </a>
-          <a class=" navbar-item" href="/rooms">
+          <a class=" navbar-item" href={{url_for("rooms.root")}}>
             ROOMS
           </a>
-          <a class=" navbar-item" href="/search">
-            SEARCH
+          <a class=" navbar-item" href={{url_for("rooms.discover")}}>
+            DISCOVER
           </a>
           {% endif %}
           
@@ -33,17 +33,17 @@
             <a class="button is-info" href="/profile">
               {{current_user.get_id()}}
             </a>
-            <a class="button is-danger" id = "signout" href="auth/logout">
+            <a class="button is-danger" id = "signout" href={{url_for("auth.logout")}}>
               <strong>SIGN OUT</strong>
             </a>
             {% else %}
             <a class="button is-primary has-tooltip-bottom" disabled>
               Sign in to use features
             </a>
-            <a class="button is-primary has-tooltip-bottom" href = "auth/register">
+            <a class="button is-primary has-tooltip-bottom" href = {{url_for("auth.register")}}>
               <strong>REGISTER</strong>
             </a>
-            <a class="button is-primary has-tooltip-bottom" href = "auth/login">
+            <a class="button is-primary has-tooltip-bottom" href = {{url_for("auth.login")}}>
               <strong>SIGN IN</strong>
             </a>
             {% endif %}
