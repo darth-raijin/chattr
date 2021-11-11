@@ -65,15 +65,16 @@ class Database:
                     "members": item.get("members"),
                     "member_count": len(item.get("members"))
                 })
-
+            print("Public room fetch complete")
             return rooms
         except:
+            print("Public room fetch failed")
             return False
 
     def get_private_rooms(self, _id: str):
         try:
             rooms = []
-            result = mongo.db.rooms.find({"members": _id})
+            result = mongo.db.rooms.find({"members": _id,  "public": "off"})
 
             for item in result:
                 if item.get("public") == "off":
@@ -86,15 +87,17 @@ class Database:
                         "members": item.get("members"),
                         "member_count": len(item.get("members"))
                     })
-
-                return rooms
+            
+            print("Private room fetch complete")
+            return rooms
         except:
+            print("Private room fetch failed")
             return False
-
-    def get_all_accessible_rooms(self, user_id: str):
+    
+    def get_room_by_user(self, _id: str):
         try:
             rooms = []
-            result = mongo.db.rooms.find({"members": user_id})
+            result = mongo.db.rooms.find({"members": _id})
 
             for item in result:
                 rooms.append({
@@ -106,9 +109,41 @@ class Database:
                     "members": item.get("members"),
                     "member_count": len(item.get("members"))
                 })
-
-                return rooms
+            
+            print("Private room fetch complete")
+            return rooms
         except:
+            print("Private room fetch failed")
+            return rooms
+
+    # TODO this needs fixing fr fr
+    def get_all_accessible_rooms(self, user_id: str):
+        try:
+            rooms = []
+
+            public_rooms = self.get_public_rooms()
+            print(public_rooms)
+            for item in public_rooms:
+                print("started public fetch")
+                if item:
+                    rooms.append(item)
+            print(f"public rooms: {rooms}".format(rooms = rooms))
+
+            private_rooms = self.get_private_rooms(user_id)
+            for item in private_rooms:
+                print("Started private room fetch")
+                if item:
+                    print(item)
+                    rooms.append(item)
+            print("{private_rooms} PRIVATE ")
+           
+
+            print(rooms)
+
+            return rooms
+        except:
+            print(rooms)
+            print("All accessible rooms fetch failed")
             return False
 
     def get_room_by_id(self, id: str):
@@ -130,4 +165,20 @@ class Database:
             return False
 
     def add_member_to_room(self, user, room):
-        result = mongo.db.rooms.update({'_id': room}, {'$push': {'members': user}})
+        try:
+            result = mongo.db.rooms.update({'_id': ObjectId(room)}, {'$push': {'members': user}})
+            result = mongo.db.rooms.find({"_id": ObjectId(id)})
+            for item in result: 
+                room = {
+                    "_id": item.get("_id"),
+                    "name": item.get("name"),
+                    "description": item.get("description"),
+                    "public": item.get("public"),
+                    "admin": item.get("admin"),
+                    "members": item.get("members"),
+                }
+                print(room)
+            return True
+
+        except:
+            return False

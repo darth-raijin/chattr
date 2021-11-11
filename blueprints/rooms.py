@@ -13,8 +13,8 @@ database = Database()
 @login_required
 @rooms.route("/")
 def root():
-    rooms = database.get_all_accessible_rooms(current_user.get_id())
-
+    rooms = database.get_room_by_user(current_user.get_id())
+    print(rooms)
     if rooms is not None:
         return render_template("rooms/rooms.html", rooms = rooms)
     return render_template("rooms/rooms.html")
@@ -30,11 +30,8 @@ def create():
         if database.create_room(name, description, public, current_user.get_id()):
             flash("Room created, go have fun!",
                   category="success")
-            print(request.form)
-            return request.form
+        return redirect(url_for(root))
 
-
-        return redirect(url_for(create))
     elif request.method == "GET":
         return render_template("rooms/create.html")
 
@@ -42,7 +39,7 @@ def create():
 @login_required
 @rooms.route("/connect", methods=["GET", "POST"])
 def connect():
-    room_id = request.args.get("room")
+    room_id = request.args.get("id")
     # TODO get single Room that has ID
     result = database.get_room_by_id(room_id)
 
