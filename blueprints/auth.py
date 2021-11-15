@@ -61,7 +61,7 @@ def login():
         if result is None:
             flash("Username and/or password is incorrect, try again!",
                   category="error")
-            return redirect(url_for(login))
+            return redirect(url_for("auth.login"))
         
         # Validation of password
 
@@ -73,7 +73,7 @@ def login():
         else:
             flash("Username and/or password is incorrect, try again!",
                   category="error")
-            return redirect(url_for(login))
+            return redirect(url_for("auth.login"))
 
         return redirect(url_for("index"))
     elif request.method == "GET":

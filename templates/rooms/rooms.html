@@ -54,7 +54,7 @@
             <p class="title is-4" id="title">{{item.get("name")}}</p>
             <p class="subtitle is-5" id ="subtitle">{{item.get("description")}} </p>
             <p class="subtitle is-6" id ="subtitle">Room is 
-              {% if item.get("puiblic") == on%}
+              {% if item.get("public") == "on"%}
               public
               {% else %}
               private

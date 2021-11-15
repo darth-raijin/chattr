@@ -163,21 +163,14 @@ class Database:
                 
         except:
             return False
+            # TODO When connecting update the user
+    def add_room_to_user(self, user: str, room_id: str):
+        NotImplemented
 
     def add_member_to_room(self, user, room):
         try:
-            result = mongo.db.rooms.update({'_id': ObjectId(room)}, {'$push': {'members': user}})
-            result = mongo.db.rooms.find({"_id": ObjectId(id)})
-            for item in result: 
-                room = {
-                    "_id": item.get("_id"),
-                    "name": item.get("name"),
-                    "description": item.get("description"),
-                    "public": item.get("public"),
-                    "admin": item.get("admin"),
-                    "members": item.get("members"),
-                }
-                print(room)
+            mongo.db.rooms.update({'_id': ObjectId(room)}, {'$push': {'members': user}})
+            mongo.db.users.update({'_id': user}, {'$push': {'joined_rooms': ObjectId(room)}})
             return True
 
         except:

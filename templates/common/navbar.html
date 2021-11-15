@@ -15,10 +15,6 @@
     <div class="navbar-end">
       <div class="navbar-item">
         {% if current_user.is_authenticated %}
-    
-          <a class=" navbar-item" href="/friends">
-            FRIENDS
-          </a>
           <a class=" navbar-item" href={{url_for("rooms.root")}}>
             ROOMS
           </a>

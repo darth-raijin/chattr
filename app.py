@@ -72,7 +72,13 @@ def index():
 @login_required
 @app.route("/profile")
 def profile():
-        return render_template("profile.html") 
+        user_profile = database.get_user_by_id(current_user.get_id())
+        user_rooms = database.get_room_by_user(current_user.get_id())
+
+        user_profile["friend_count"] = len(user_profile["friends"])
+        user_profile["room_count"] = len(user_profile["joined_rooms"])
+        print(len(user_profile["joined_rooms"]))
+        return render_template("profile.html", rooms = user_rooms, profile = user_profile) 
 
 @login_required
 @app.route("/settings")
